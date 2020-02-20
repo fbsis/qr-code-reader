@@ -13,9 +13,9 @@ export default Head = (props) => {
             <Body>
                 <Title>{props.title} </Title>
             </Body>
-            <Right><Button transparent>
-                <Icon type="MaterialCommunityIcons" name="theme-light-dark" />
-
-            </Button></Right>
+            <Right>
+                <Button transparent>
+                    <Icon type="MaterialCommunityIcons" name="theme-light-dark" />
+                </Button></Right>
         </Header >)
 }
