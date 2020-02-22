@@ -20,7 +20,7 @@ import { Container, Content, Button } from 'native-base';
 
 
 // import Head from '../../components/Head'
-import Foot from '../../components/Foot/'
+import Foot from '../../components/Foot'
 
 
 const Home = (props) => {
