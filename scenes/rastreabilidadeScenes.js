@@ -11,7 +11,7 @@ import {
   Linking,
 } from 'react-native';
 
-import { Root , Toast } from 'native-base';
+import { Root, Toast } from 'native-base';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import Camera from 'react-native-camera'
@@ -19,6 +19,11 @@ import Camera from 'react-native-camera'
 import { getInformation } from '../services/trackingCodeServices'
 
 class qrCOdeReader extends Component {
+
+  constructor(props) {
+    super(props)
+    this.props = props;
+  }
   onSuccess = (e) => {
     getInformation(e.data);
     retorno = getInformation(e.data);
@@ -37,8 +42,8 @@ class qrCOdeReader extends Component {
         text: 'Código não encontrado',
         buttonText: 'Fechar'
       })
-    }else{
-      
+    } else {
+      this.props.navigation.navigate('restreabilidadeDetalhes', info[0])
     }
 
     return info;
@@ -64,10 +69,9 @@ class qrCOdeReader extends Component {
   // }
 
   render() {
-    console.log("sfd");
     return (
       <Root>
-        <TouchableOpacity style={styles.buttonTouchable} onPress={() => this.processTouch("PW189909906BRF")}>
+        <TouchableOpacity style={styles.buttonTouchable} onPress={() => this.processTouch("PW189909906BR")}>
           <Text  >Fake it</Text>
         </TouchableOpacity>
       </Root>

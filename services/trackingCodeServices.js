@@ -1,5 +1,5 @@
 
-import * as data from './defaultInformation.json';
+import * as data from './config/defaultInformation.json';
 
 
 export function getInformation(qrCode) {
