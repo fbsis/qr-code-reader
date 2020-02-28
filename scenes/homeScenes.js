@@ -37,8 +37,8 @@ const Home = (props) => {
             margin: 10,
 
           }}>
-          <Button block light info onPress={() => { navigation.navigate('rastreabilidade') }}>
-            <Text style={{ justifyContent: 'center' }} >Ler Qr Code</Text>
+          <Button block light info onPress={() => { navigation.push ('rastreabilidade') }}>
+            <Text style={{ justifyContent: 'center' }} >Rastreabilidade</Text>
           </Button>
         </View>
 

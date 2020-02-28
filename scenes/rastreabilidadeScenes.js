@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   AppRegistry,
   SafeAreaView,
@@ -11,39 +11,37 @@ import {
   Linking,
 } from 'react-native';
 
-import { Root, Toast } from 'native-base';
+import {Root, Toast} from 'native-base';
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import Camera from 'react-native-camera'
+import Camera from 'react-native-camera';
 
-import { getInformation } from '../services/trackingCodeServices'
+import {getInformation} from '../services/trackingCodeServices';
 
 class qrCOdeReader extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.props = props;
   }
-  onSuccess = (e) => {
+  onSuccess = e => {
     getInformation(e.data);
     retorno = getInformation(e.data);
 
     // Linking
     //   .openURL(e.data)
     //   .catch(err => console.error('An error occured', err));
-  }
+  };
 
   processTouch(idCode) {
     let info = getInformation(idCode);
 
     if (info.length == 0) {
-
       Toast.show({
         text: 'Código não encontrado',
-        buttonText: 'Fechar'
-      })
+        buttonText: 'Fechar',
+      });
     } else {
-      this.props.navigation.navigate('restreabilidadeDetalhes', info[0])
+      this.props.navigation.navigate('restreabilidadeDetalhes', info[0]);
     }
 
     return info;
@@ -71,15 +69,15 @@ class qrCOdeReader extends Component {
   render() {
     return (
       <Root>
-        <TouchableOpacity style={styles.buttonTouchable} onPress={() => this.processTouch("PW189909906BR")}>
-          <Text  >Fake it</Text>
+        <TouchableOpacity
+          style={styles.buttonTouchable}
+          onPress={() => this.processTouch('PW189909906BR')}>
+          <Text>Fake it</Text>
         </TouchableOpacity>
       </Root>
-    )
-
+    );
   }
 }
-
 
 const styles = StyleSheet.create({
   centerText: {

@@ -1,21 +1,46 @@
+import React, {Component, useEffect, useState} from 'react';
+import {
+  Container,
+  Header,
+  Title,
+  Content,
+  Footer,
+  FooterTab,
+  Button,
+  Left,
+  Right,
+  Body,
+  Icon,
+  Text,
+} from 'native-base';
 
-import React, { Component, useEffect } from 'react';
-import { Container, Header, Title, Content, Footer, FooterTab, Button, Left, Right, Body, Icon, Text } from 'native-base';
+export default Head = props => {
+  const canGoBack = props.navigation.canGoBack();
 
-export default Head = (props) => {
+  return (
+    <Header>
+      {canGoBack && (
+        <Left>
+          <Button transparent onPress={() => props.navigation.goBack()}>
+            <Icon name="arrow-back" />
+          </Button>
+        </Left>
+      )}
 
-    useEffect(() => {
-        console.log(props)
-    });
+      <Body>
+        <Title>{props.title}</Title>
+      </Body>
 
-    return (
-        < Header >
-            <Body>
-                <Title>{props.title} </Title>
-            </Body>
-            <Right>
-                <Button transparent>
-                    <Icon type="MaterialCommunityIcons" name="theme-light-dark" />
-                </Button></Right>
-        </Header >)
-}
+      {props.tools && (
+        <Right>
+          <Button transparent>
+            <Icon
+              type="MaterialCommunityIcons"
+              name="dots-vertical"
+            />
+          </Button>
+        </Right>
+      )}
+    </Header>
+  );
+};
