@@ -9,6 +9,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Linking,
+  Alert
 } from 'react-native';
 
 import {Root, Toast} from 'native-base';
@@ -23,48 +24,50 @@ class qrCOdeReader extends Component {
     super(props);
     this.props = props;
   }
-  onSuccess = e => {
+  onSuccess = async e => {
     getInformation(e.data);
-    retorno = getInformation(e.data);
+    retorno = await getInformation(e.data);
 
-    // Linking
-    //   .openURL(e.data)
-    //   .catch(err => console.error('An error occured', err));
+    this.processTouch(e.data);
   };
 
   processTouch(idCode) {
     let info = getInformation(idCode);
 
+    console.log(info);
     if (info.length == 0) {
-      Toast.show({
-        text: 'Código não encontrado',
-        buttonText: 'Fechar',
-      });
+      Alert.alert(
+        'Código não encontrado',
+        'Verifique a informação lida e se a impressão está legivel e tente novamente',
+      );
     } else {
-      this.props.navigation.navigate('restreabilidadeDetalhes', info[0]);
+      this.props.navigation.navigate('rastreabilidadeDetalhes', info[0]);
     }
 
     return info;
   }
 
-  // render() {
-  //   return (
-  //     <QRCodeScanner
-  //       onRead={this.onSuccess}
-  //       //flashMode={QRCodeScanner.Constants.FlashMode.torch}
-  //       topContent={
-  //         <Text style={styles.centerText}>
-  //           Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
-  //         </Text>
-  //       }
-  //       bottomContent={
-  //           <TouchableOpacity style={styles.buttonTouchable}>
-  //             <Text style={styles.buttonText}>OK. Got it!</Text>
-  //           </TouchableOpacity>
-  //       }
-  //     />
-  //   );
-  // }
+  _render() {
+    console.log(QRCodeScanner);
+    return (
+      <QRCodeScanner
+        onRead={this.onSuccess}
+        reactivate={true}
+        reactivateTimeout={5}
+        //flashMode={QRCodeScanner.Constants.FlashMode.torch}
+        // topContent={
+        //   <Text style={styles.centerText}>
+        //     Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
+        //   </Text>
+        // }
+        // bottomContent={
+        //     <TouchableOpacity style={styles.buttonTouchable}>
+        //       <Text style={styles.buttonText}>OK. Got it!</Text>
+        //     </TouchableOpacity>
+        // }
+      />
+    );
+  }
 
   render() {
     return (

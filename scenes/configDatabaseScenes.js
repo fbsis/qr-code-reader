@@ -28,10 +28,8 @@ function configDatabaseScenes() {
 
     if (isDropBoxLink) {
       let urlReplace = url.replace('?dl=0', '?raw=1');
-      console.log(urlReplace);
 
       let result = await validateAndGetJsonUrl(urlReplace);
-      console.log(result);
       switch (result) {
         case result === 'Invalid':
           Alert.alert(
