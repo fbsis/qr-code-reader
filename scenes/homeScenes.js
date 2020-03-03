@@ -12,41 +12,63 @@ import {
   StyleSheet,
   ScrollView,
   View,
-  Text,
   StatusBar,
+  Image,
 } from 'react-native';
 
-import { Container, Content, Button } from 'native-base';
-
+import {Container, Content, Button, Text} from 'native-base';
 
 // import Head from '../../components/Head'
-import Foot from '../components/Foot'
+import Foot from '../components/Foot';
 
+import logo from '../assets/logo_ceptis_digital.png';
 
-const Home = (props) => {
+const Home = props => {
   const navigation = props.navigation;
-
-
 
   return (
     <Container>
       {/* <Head /> */}
-      <Content >
+      <Content>
         <View
           style={{
             margin: 10,
-
+            flex: 1,
           }}>
-          <Button block light info onPress={() => { navigation.push ('rastreabilidade') }}>
-            <Text style={{ justifyContent: 'center' }} >Rastreabilidade</Text>
+          {/* <Image
+            source={{uri: 'https://facebook.github.io/react/logo-og.png'}}
+            style={{
+              height:250,
+              width:250,
+              alignSelf: 'center',
+              margin: 10,
+            }}
+          /> */}
+
+          <Image
+            source={require('../assets/logo_ceptis_digital.png')}
+            style={{
+              height: 250,
+              width: 250,
+              alignSelf: 'center',
+              margin: 10,
+            }}
+          />
+
+          <Button
+            block
+            light
+            info
+            onPress={() => {
+              navigation.push('rastreabilidade');
+            }}>
+            <Text style={{justifyContent: 'center'}}>Rastreabilidade</Text>
           </Button>
         </View>
-
       </Content>
-    <Foot />
-    </Container >
+      <Foot />
+    </Container>
   );
 };
-
 
 export default Home;

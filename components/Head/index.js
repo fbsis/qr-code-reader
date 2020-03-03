@@ -33,10 +33,9 @@ export default Head = props => {
 
       {props.tools && (
         <Right>
-          <Button transparent>
+          <Button transparent onPress={() => props.navigation.push("configuracao")}>
             <Icon
-              type="MaterialCommunityIcons"
-              name="dots-vertical"
+              name="menu"
             />
           </Button>
         </Right>
