@@ -48,10 +48,11 @@ const Home = props => {
           <Image
             source={require('../assets/logo_ceptis_digital.png')}
             style={{
-              height: 250,
-              width: 250,
+              height: 350,
+              width: 350,
               alignSelf: 'center',
-              margin: 10,
+              margin: 50,
+              marginTop: 50,
             }}
           />
 

@@ -22,18 +22,29 @@ class qrCOdeReader extends Component {
   constructor(props) {
     super(props);
     this.props = props;
-  }
-  onSuccess = e => {
-    getInformation(e.data);
-    retorno = getInformation(e.data);
 
-    // Linking
-    //   .openURL(e.data)
-    //   .catch(err => console.error('An error occured', err));
+    this.state = {
+      reactivate: true,
+    };
+    
+  }
+
+  componentDidMount() {
+    this._unsubscribe = this.props.navigation.addListener('focus', () => {
+      this.setState({reactivate: true});
+    });
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+
+  onSuccess = e => {
+    this.processTouch(e.data);
   };
 
-  processTouch(idCode) {
-    let info = getInformation(idCode);
+  async processTouch(idCode) {
+    let info = await getInformation(idCode);
 
     if (info.length == 0) {
       Toast.show({
@@ -41,7 +52,8 @@ class qrCOdeReader extends Component {
         buttonText: 'Fechar',
       });
     } else {
-      this.props.navigation.navigate('restreabilidadeDetalhes', info[0]);
+      this.props.navigation.push('restreabilidadeDetalhes', info[0]);
+      this.setState({reactivate: false});
     }
 
     return info;
@@ -49,20 +61,26 @@ class qrCOdeReader extends Component {
 
   // render() {
   //   return (
-  //     <QRCodeScanner
-  //       onRead={this.onSuccess}
-  //       //flashMode={QRCodeScanner.Constants.FlashMode.torch}
-  //       topContent={
-  //         <Text style={styles.centerText}>
-  //           Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
-  //         </Text>
-  //       }
-  //       bottomContent={
-  //           <TouchableOpacity style={styles.buttonTouchable}>
-  //             <Text style={styles.buttonText}>OK. Got it!</Text>
-  //           </TouchableOpacity>
-  //       }
-  //     />
+  //     <Root>
+  //       {this.state.reactivate && (
+  //         <QRCodeScanner
+  //           onRead={this.onSuccess}
+  //           reactivateTimeout={5}
+  //           reactivate={this.state.reactivate}
+  //           //flashMode={QRCodeScanner.Constants.FlashMode.torch}
+  //           // topContent={
+  //           //   <Text style={styles.centerText}>
+  //           //     Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
+  //           //   </Text>
+  //           // }
+  //           // bottomContent={
+  //           //     <TouchableOpacity style={styles.buttonTouchable}>
+  //           //       <Text style={styles.buttonText}>OK. Got it!</Text>
+  //           //     </TouchableOpacity>
+  //           // }
+  //         />
+  //       )}
+  //     </Root>
   //   );
   // }
 
@@ -71,7 +89,7 @@ class qrCOdeReader extends Component {
       <Root>
         <TouchableOpacity
           style={styles.buttonTouchable}
-          onPress={() => this.processTouch('PW189909906BR')}>
+          onPress={() => this.processTouch('PW123456789BR2')}>
           <Text>Fake it</Text>
         </TouchableOpacity>
       </Root>

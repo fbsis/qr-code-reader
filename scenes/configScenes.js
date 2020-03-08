@@ -23,7 +23,7 @@ class configScenes extends Component {
           <ListItem onPress={() => this.props.navigation.push("configDatabase")}>
             <Text>Banco de dados</Text>
           </ListItem>
-          <ListItem onPress={() => this.props.navigation.push("configDatabase")}>
+          <ListItem onPress={() => this.props.navigation.push("temas")}>
             <Text>Temas</Text>
           </ListItem>
           <ListItem onPress={() => this.props.navigation.push("configDatabase")}>
