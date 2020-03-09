@@ -32,8 +32,7 @@ function configDatabaseScenes(props) {
     if (isDropBoxLink) {
       let urlReplace = url.replace('?dl=0', '?raw=1');
 
-      const result = await validateAndGetJsonUrl(urlReplace);
-
+      let result = await validateAndGetJsonUrl(urlReplace);
       switch (result) {
         case 'Invalid':
           setIsLoading(false);
@@ -50,6 +49,7 @@ function configDatabaseScenes(props) {
           );
           break;
         default:
+          console.log('gravando');
           await setDBInformation(result);
           props.navigation.goBack()
           setIsLoading(false);

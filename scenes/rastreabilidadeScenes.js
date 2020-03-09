@@ -9,6 +9,7 @@ import {
   StatusBar,
   TouchableOpacity,
   Linking,
+  Alert
 } from 'react-native';
 
 import {Root, Toast} from 'native-base';
@@ -39,7 +40,10 @@ class qrCOdeReader extends Component {
     this._unsubscribe();
   }
 
-  onSuccess = e => {
+  onSuccess = async e => {
+    getInformation(e.data);
+    retorno = await getInformation(e.data);
+
     this.processTouch(e.data);
   };
 
@@ -47,12 +51,12 @@ class qrCOdeReader extends Component {
     let info = await getInformation(idCode);
 
     if (info.length == 0) {
-      Toast.show({
-        text: 'Código não encontrado',
-        buttonText: 'Fechar',
-      });
+      Alert.alert(
+        'Código não encontrado',
+        'Verifique a informação lida e se a impressão está legivel e tente novamente',
+      );
     } else {
-      this.props.navigation.push('restreabilidadeDetalhes', info[0]);
+      this.props.navigation.push('rastreabilidadeDetalhes', info[0]);
       this.setState({reactivate: false});
     }
 

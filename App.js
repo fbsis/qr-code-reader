@@ -31,6 +31,7 @@ function App() {
             header: props => <Head {...props} title="Ceptis" tools={true} />,
           }}
         />
+        
         <Stack.Screen
           name="rastreabilidade"
           component={qrCOdeReader}
@@ -40,8 +41,9 @@ function App() {
             ),
           }}
         />
+
         <Stack.Screen
-          name="restreabilidadeDetalhes"
+          name="rastreabilidadeDetalhes"
           component={rastreabilidadeDetailsScenes}
           options={{
             header: props => <Head {...props} title="Detalhes" tools={false} />,

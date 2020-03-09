@@ -35,16 +35,6 @@ const Home = props => {
             margin: 10,
             flex: 1,
           }}>
-          {/* <Image
-            source={{uri: 'https://facebook.github.io/react/logo-og.png'}}
-            style={{
-              height:250,
-              width:250,
-              alignSelf: 'center',
-              margin: 10,
-            }}
-          /> */}
-
           <Image
             source={require('../assets/logo_ceptis_digital.png')}
             style={{
