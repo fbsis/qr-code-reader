@@ -43,9 +43,12 @@ class rastreabilidadeDetailsScenes extends Component {
                 </ListItem>
               ),
           )}
-          <Separator bordered>
-            <Text>Tracking</Text>
-          </Separator>
+
+          {trackInfo && trackInfo.length > 0 && (
+            <Separator bordered>
+              <Text>Tracking</Text>
+            </Separator>
+          )}
 
           {trackInfo.map((value, key) => (
             <Card key={key}>

@@ -1,67 +1,64 @@
-
 import * as data from './config/defaultInformation.json';
-import axios from 'axios'
+import axios from 'axios';
 import {AsyncStorage} from 'react-native';
 
-
 export async function getInformation(qrCode) {
-    let leitura = await getDBInformation();
-    leitura = JSON.parse(leitura);
-    const dbInformation = leitura.data.filter(e => e.qrCode == qrCode);
-    return dbInformation
+  let recuperando = await getDBInformation();
+  console.log('recuperando 1', recuperando);
+
+  console.log('getInformation', await getDBInformation());
+  const leitura = data.data;
+  console.log('leitura', leitura);
+
+  const dbInformation = leitura.filter(e => e.qrCode == qrCode);
+  return dbInformation;
 }
 
-
-export function getDefaultInformation(qrCode) {
-    
-    
-}
-
-export async function  validateAndGetJsonUrl(url){
-    try {
-        const data = await axios.get(url);
-
-        if(data.status == 200){
-            if(data.data.data){
-                return 'Invalid';
-            }
-            return data.data
-        }else{
-            return 'Error';
-        }
-    } catch (error) {
-        return 'Error';
-
+export async function validateAndGetJsonUrl(url) {
+  try {
+    const data = await axios.get(url, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('result data', data.status, data.data);
+    if (data.status == 200) {
+      if (data.data.data) {
+        return 'Invalid';
+      }
+      return data.data;
+    } else {
+      return 'Error';
     }
+  } catch (error) {
+    return 'Error';
+  }
 }
 
-export async function setDBInformation(dbJson){
-    console.log('1', dbJson);
-    try {
-        console.log('2', dbJson);
-        await AsyncStorage.setItem('@trackingDB:data', dbJson);
-      } catch (error) {
-        // Error saving data
-        console.log('error', error);
-      }
-    
+export async function getDBInformation() {
+  try {
+    const data = await AsyncStorage.getItem('@dbInformationJson');
+    if (data !== null) {
+      console.log('ja tem');
+      return JSON.parse(data);
+    } else {
+      // first time
+      console.log('primeira vez');
+
+      await setDBInformation(data.data);
+      return data.data;
+    }
+  } catch (error) {
+    return error;
+  }
 }
 
-export async function getDBInformation(){
-    try {
-        const value = await AsyncStorage.getItem('@trackingDB:data');
-        if (value !== null) {
-          // We have data!!
-          console.log('have', value);
-          return value;
-        }else{
-            console.log('dont have', value);
-            return data.data;
-        }
-      } catch (error) {
-        // Error retrieving data
-        console.log('error', error);
-        return data.data;
-      }
-    
+export async function setDBInformation(dbJson) {
+  try {
+    await AsyncStorage.setItem('@dbInformationJson', dbJson);
+    console.log('apos salvar', dbJson);
+  } catch (error) {
+    return error;
+    // Error saving data
+  }
 }
