@@ -41,7 +41,8 @@ class qrCOdeReader extends Component {
   }
 
   onSuccess = async e => {
-    getInformation(e.data);
+    console.log(e);
+    //getInformation(e.data);
     retorno = await getInformation(e.data);
 
     this.processTouch(e.data);
@@ -63,42 +64,42 @@ class qrCOdeReader extends Component {
     return info;
   }
 
-  // render() {
-  //   return (
-  //     <Root>
-  //       {this.state.reactivate && (
-  //         <QRCodeScanner
-  //           onRead={this.onSuccess}
-  //           reactivateTimeout={5}
-  //           reactivate={this.state.reactivate}
-  //           //flashMode={QRCodeScanner.Constants.FlashMode.torch}
-  //           // topContent={
-  //           //   <Text style={styles.centerText}>
-  //           //     Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
-  //           //   </Text>
-  //           // }
-  //           // bottomContent={
-  //           //     <TouchableOpacity style={styles.buttonTouchable}>
-  //           //       <Text style={styles.buttonText}>OK. Got it!</Text>
-  //           //     </TouchableOpacity>
-  //           // }
-  //         />
-  //       )}
-  //     </Root>
-  //   );
-  // }
-
   render() {
     return (
       <Root>
-        <TouchableOpacity
-          style={styles.buttonTouchable}
-          onPress={() => this.processTouch('PW123456789BR2')}>
-          <Text>Fake it</Text>
-        </TouchableOpacity>
+        {this.state.reactivate && (
+          <QRCodeScanner
+            onRead={this.onSuccess}
+            reactivateTimeout={5}
+            reactivate={this.state.reactivate}
+            //flashMode={QRCodeScanner.Constants.FlashMode.torch}
+            // topContent={
+            //   <Text style={styles.centerText}>
+            //     Go to <Text style={styles.textBold}>wikipedia.org/wiki/QR_code</Text> on your computer and scan the QR code.
+            //   </Text>
+            // }
+            // bottomContent={
+            //     <TouchableOpacity style={styles.buttonTouchable}>
+            //       <Text style={styles.buttonText}>OK. Got it!</Text>
+            //     </TouchableOpacity>
+            // }
+          />
+        )}
       </Root>
     );
   }
+
+  // render() {
+  //   return (
+  //     <Root>
+  //       <TouchableOpacity
+  //         style={styles.buttonTouchable}
+  //         onPress={() => this.processTouch('PW123456789BR2')}>
+  //         <Text>Fake it</Text>
+  //       </TouchableOpacity>
+  //     </Root>
+  //   );
+  // }
 }
 
 const styles = StyleSheet.create({

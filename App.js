@@ -28,7 +28,7 @@ function App() {
           name="Home"
           component={homeScenes}
           options={{
-            header: props => <Head {...props} title="Ceptis" tools={true} />,
+            header: props => <Head {...props} title="Ceptis" tools={true} isInternal={false} />,
           }}
         />
         
@@ -37,7 +37,7 @@ function App() {
           component={qrCOdeReader}
           options={{
             header: props => (
-              <Head {...props} title="Rastreabilidade" tools={false} />
+              <Head {...props} title="Rastreabilidade" tools={false} isInternal={true} />
             ),
           }}
         />
@@ -46,7 +46,7 @@ function App() {
           name="rastreabilidadeDetalhes"
           component={rastreabilidadeDetailsScenes}
           options={{
-            header: props => <Head {...props} title="Detalhes" tools={false} />,
+            header: props => <Head {...props} title="Detalhes" tools={false} isInternal={true} />,
           }}
         />
 
@@ -65,7 +65,7 @@ function App() {
           component={configDatabaseScenes}
           options={{
             header: props => (
-              <Head {...props} title="Banco de dados" tools={false} />
+              <Head {...props} title="Banco de dados" tools={false}  />
             ),
           }}
         />

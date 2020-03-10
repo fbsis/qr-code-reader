@@ -3,10 +3,10 @@ import axios from 'axios';
 import {AsyncStorage} from 'react-native';
 
 export async function getInformation(qrCode) {
-  let recuperando = await getDBInformation();
-  console.log('recuperando 1', recuperando);
+  // let recuperando = await getDBInformation();
+  // console.log('recuperando 1', recuperando);
 
-  console.log('getInformation', await getDBInformation());
+  // console.log('getInformation', await getDBInformation());
   const leitura = data.data;
   console.log('leitura', leitura);
 

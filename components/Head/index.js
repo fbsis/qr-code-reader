@@ -15,13 +15,13 @@ import {
 } from 'native-base';
 
 export default Head = props => {
-  const canGoBack = props.navigation.canGoBack();
-
+  //const canGoBack = props.navigation.canGoBack();
+  const canGoBack = props.isInternal;
   return (
     <Header>
       {canGoBack && (
         <Left>
-          <Button transparent onPress={() => props.navigation.goBack()}>
+          <Button transparent onPress={() => props.navigation.push("Home")}>
             <Icon name="arrow-back" />
           </Button>
         </Left>
@@ -31,7 +31,7 @@ export default Head = props => {
         <Title>{props.title}</Title>
       </Body>
 
-      {props.tools && (
+      {/* {props.tools && (
         <Right>
           <Button transparent onPress={() => props.navigation.push("configuracao")}>
             <Icon
@@ -39,7 +39,7 @@ export default Head = props => {
             />
           </Button>
         </Right>
-      )}
+      )} */}
     </Header>
   );
 };
