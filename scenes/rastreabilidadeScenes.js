@@ -94,7 +94,13 @@ class qrCOdeReader extends Component {
         <TouchableOpacity
           style={styles.buttonTouchable}
           onPress={() => this.processTouch('PW123456789BR2')}>
-          <Text>Fake it</Text>
+          <Text>Fake it json local</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.buttonTouchable}
+          onPress={() => this.processTouch('PW123456789BR2DropBox')}>
+          <Text>Fake it import</Text>
         </TouchableOpacity>
       </Root>
     );

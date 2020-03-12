@@ -26,7 +26,7 @@ class configScenes extends Component {
           <ListItem onPress={() => this.props.navigation.push("temas")}>
             <Text>Temas</Text>
           </ListItem>
-          <ListItem onPress={() => this.props.navigation.push("configDatabase")}>
+          <ListItem onPress={() => this.props.navigation.push("clearDatabase")}>
             <Text>Limpar e reiniciar o App</Text>
           </ListItem>
         </List>

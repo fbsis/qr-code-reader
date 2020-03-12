@@ -1,16 +1,13 @@
 import * as data from './config/defaultInformation.json';
 import axios from 'axios';
-import {AsyncStorage} from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 export async function getInformation(qrCode) {
-  let recuperando = await getDBInformation();
-  console.log('recuperando 1', recuperando);
+  let info = await getDBInformation();
+  console.log('recuperando 2', info);
 
-  console.log('getInformation', await getDBInformation());
-  const leitura = data.data;
-  console.log('leitura', leitura);
-
-  const dbInformation = leitura.filter(e => e.qrCode == qrCode);
+  return null
+  //const dbInformation = info.data.filter(e => e.qrCode == qrCode);
   return dbInformation;
 }
 
@@ -21,7 +18,7 @@ export async function validateAndGetJsonUrl(url) {
         'Content-Type': 'application/json',
       },
     });
-    console.log('result data', data.status, data.data);
+    //console.log('result data', data.status, data.data, JSON.parse(data));
     if (data.status == 200) {
       if (data.data.data) {
         return 'Invalid';
@@ -37,16 +34,13 @@ export async function validateAndGetJsonUrl(url) {
 
 export async function getDBInformation() {
   try {
-    const data = await AsyncStorage.getItem('@dbInformationJson');
-    if (data !== null) {
-      console.log('ja tem');
-      return JSON.parse(data);
-    } else {
-      // first time
-      console.log('primeira vez');
+    const storage = await AsyncStorage.getItem('@dbInformationJson');
 
-      await setDBInformation(data.data);
-      return data.data;
+    if (storage !== null) {
+      return eval(storage);
+    } else {
+      await setDBInformation(data);
+      return JSON.parse(data);
     }
   } catch (error) {
     return error;
@@ -54,10 +48,24 @@ export async function getDBInformation() {
 }
 
 export async function setDBInformation(dbJson) {
+  dbJson = JSON.stringify(dbJson);
+
   try {
     await AsyncStorage.setItem('@dbInformationJson', dbJson);
     console.log('apos salvar', dbJson);
   } catch (error) {
+    console.log(error);
+    return error;
+    // Error saving data
+  }
+}
+
+export async function clear(dbJson) {
+  console.log('clear')
+  try {
+    await AsyncStorage.clear();
+  } catch (error) {
+    console.log(error);
     return error;
     // Error saving data
   }

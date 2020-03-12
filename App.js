@@ -7,13 +7,14 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Head from './components/Head';
 import homeScenes from './scenes/homeScenes';
 import qrCOdeReader from './scenes/rastreabilidadeScenes';
 import rastreabilidadeDetailsScenes from './scenes/rastreabilidadeDetailsScenes';
+import clearDatabaseScenes from './scenes/clearDatabaseScenes';
 import configScenes from './scenes/configScenes';
 import configDatabaseScenes from './scenes/configDatabaseScenes';
 import themesScenes from './scenes/themesScenes';
@@ -31,7 +32,7 @@ function App() {
             header: props => <Head {...props} title="Ceptis" tools={true} />,
           }}
         />
-        
+
         <Stack.Screen
           name="rastreabilidade"
           component={qrCOdeReader}
@@ -73,6 +74,14 @@ function App() {
         <Stack.Screen
           name="temas"
           component={themesScenes}
+          options={{
+            header: props => <Head {...props} title="Temas" tools={false} />,
+          }}
+        />
+
+        <Stack.Screen
+          name="clearDatabase"
+          component={clearDatabaseScenes}
           options={{
             header: props => <Head {...props} title="Temas" tools={false} />,
           }}

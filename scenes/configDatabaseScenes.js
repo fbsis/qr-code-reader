@@ -1,6 +1,6 @@
-import React, {Component, useState} from 'react';
+import React, { Component, useState } from 'react';
 
-import {StyleSheet, Root, Toast, Alert} from 'react-native';
+import { StyleSheet, Root, Toast, Alert } from 'react-native';
 
 import {
   Content,
@@ -21,7 +21,8 @@ import {
 
 function configDatabaseScenes(props) {
   const [url, setUrl] = useState(
-    'https://www.dropbox.com/s/0bhucckrv1i3ngb/defaultInformation.json?dl=0',
+    //'https://www.dropbox.com/s/0bhucckrv1i3ngb/defaultInformation.json?dl=0',
+    'http://198.211.110.146/_extra/defaultInformation.json'
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,29 +33,31 @@ function configDatabaseScenes(props) {
     if (isDropBoxLink) {
       let urlReplace = url.replace('?dl=0', '?raw=1');
 
-      let result = await validateAndGetJsonUrl(urlReplace);
-      switch (result) {
-        case 'Invalid':
-          setIsLoading(false);
-          Alert.alert(
-            'Importação de banco de dados',
-            'Os dados importados são inválidos, o processo foi abortado',
-          );
-          break;
-        case 'Error':
-          setIsLoading(false);
-          Alert.alert(
-            'Importação de banco de dados',
-            'Erro ao importar, verifique a sua URL',
-          );
-          break;
-        default:
-          console.log('gravando');
-          await setDBInformation(result);
-          props.navigation.goBack()
-          setIsLoading(false);
-          break;
-      }
+    }
+
+
+    let result = await validateAndGetJsonUrl(url);
+
+    switch (result) {
+      case 'Invalid':
+        setIsLoading(false);
+        Alert.alert(
+          'Importação de banco de dados',
+          'Os dados importados são inválidos, o processo foi abortado',
+        );
+        break;
+      case 'Error':
+        setIsLoading(false);
+        Alert.alert(
+          'Importação de banco de dados',
+          'Erro ao importar, verifique a sua URL',
+        );
+        break;
+      default:
+        await setDBInformation(result);
+        props.navigation.goBack()
+        setIsLoading(false);
+        break;
     }
   };
 
