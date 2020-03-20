@@ -21,7 +21,8 @@ import {
 
 function configDatabaseScenes(props) {
   const [url, setUrl] = useState(
-    'https://www.dropbox.com/s/0bhucckrv1i3ngb/defaultInformation.json?dl=0',
+    //'https://www.dropbox.com/s/0bhucckrv1i3ngb/defaultInformation.json?dl=0',
+    'http://www.fbsis.com/defaultInformation.json',
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -29,32 +30,32 @@ function configDatabaseScenes(props) {
     setIsLoading(true);
     let isDropBoxLink = url.includes('dropbox');
 
+    let urlReplace = url;
     if (isDropBoxLink) {
-      let urlReplace = url.replace('?dl=0', '?raw=1');
-
-      let result = await validateAndGetJsonUrl(urlReplace);
-      switch (result) {
-        case 'Invalid':
-          setIsLoading(false);
-          Alert.alert(
-            'Importação de banco de dados',
-            'Os dados importados são inválidos, o processo foi abortado',
-          );
-          break;
-        case 'Error':
-          setIsLoading(false);
-          Alert.alert(
-            'Importação de banco de dados',
-            'Erro ao importar, verifique a sua URL',
-          );
-          break;
-        default:
-          console.log('gravando');
-          await setDBInformation(result);
-          props.navigation.goBack()
-          setIsLoading(false);
-          break;
-      }
+      urlReplace = urlReplace.replace('?dl=0', '?raw=1');
+    }
+    let result = await validateAndGetJsonUrl(urlReplace);
+    switch (result) {
+      case 'Invalid':
+        setIsLoading(false);
+        Alert.alert(
+          'Importação de banco de dados',
+          'Os dados importados são inválidos, o processo foi abortado',
+        );
+        break;
+      case 'Error':
+        setIsLoading(false);
+        Alert.alert(
+          'Importação de banco de dados',
+          'Erro ao importar, verifique a sua URL',
+        );
+        break;
+      default:
+        console.log('gravando');
+        await setDBInformation(result);
+        props.navigation.goBack();
+        setIsLoading(false);
+        break;
     }
   };
 

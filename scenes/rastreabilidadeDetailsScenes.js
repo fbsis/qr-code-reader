@@ -13,19 +13,20 @@ import {
 } from 'native-base';
 
 class rastreabilidadeDetailsScenes extends Component {
-  renderInfos = () => {};
-
   render() {
     const data = this.props.route.params;
+
     const tracking = this.props.route.params.tracking;
     let trackInfo = [];
 
-    tracking.map((value, key) => {
-      trackInfo[key] = [];
-      Object.keys(value).map((value1, key1) => {
-        trackInfo[key][value1] = tracking[key][value1];
+    tracking &&
+    tracking.length > 0 &&
+      tracking.map((value, key) => {
+        trackInfo[key] = [];
+        Object.keys(value).map((value1, key1) => {
+          trackInfo[key][value1] = tracking[key][value1];
+        });
       });
-    });
 
     return (
       <Container>
@@ -50,21 +51,23 @@ class rastreabilidadeDetailsScenes extends Component {
             </Separator>
           )}
 
-          {trackInfo.map((value, key) => (
-            <Card key={key}>
-              <CardItem>
-                <Body>
-                  {Object.keys(value).map((value1, key1) => {
-                    return (
-                      <Text key={key1}>
-                        {value1}: {value[value1]}
-                      </Text>
-                    );
-                  })}
-                </Body>
-              </CardItem>
-            </Card>
-          ))}
+          {trackInfo &&
+            trackInfo.length > 0 &&
+            trackInfo.map((value, key) => (
+              <Card key={key}>
+                <CardItem>
+                  <Body>
+                    {Object.keys(value).map((value1, key1) => {
+                      return (
+                        <Text key={key1}>
+                          {value1}: {value[value1]}
+                        </Text>
+                      );
+                    })}
+                  </Body>
+                </CardItem>
+              </Card>
+            ))}
         </Content>
       </Container>
     );

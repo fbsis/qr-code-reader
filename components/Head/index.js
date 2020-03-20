@@ -15,13 +15,32 @@ import {
 } from 'native-base';
 
 export default Head = props => {
-  //const canGoBack = props.navigation.canGoBack();
-  const canGoBack = props.isInternal;
+  const backAction = () => {
+    if (props.isInternal) {
+      props.navigation.push('Home');
+    } else {
+      props.navigation.goBack();
+    }
+  };
+
+  const isShowButton = () => {
+    if (props.title == 'Ceptis') {
+      return false;
+    }
+    if (props.isInternal) {
+      return true;
+    } else {
+      if (props.navigation.canGoBack()) {
+        return true;
+      }
+    }
+  };
+
   return (
     <Header>
-      {canGoBack && (
+      {isShowButton() && (
         <Left>
-          <Button transparent onPress={() => props.navigation.push("Home")}>
+          <Button transparent onPress={() => backAction()}>
             <Icon name="arrow-back" />
           </Button>
         </Left>
@@ -31,15 +50,15 @@ export default Head = props => {
         <Title>{props.title}</Title>
       </Body>
 
-      {/* {props.tools && (
+      {props.tools && (
         <Right>
-          <Button transparent onPress={() => props.navigation.push("configuracao")}>
-            <Icon
-              name="menu"
-            />
+          <Button
+            transparent
+            onPress={() => props.navigation.push('configuracao')}>
+            <Icon name="menu" />
           </Button>
         </Right>
-      )} */}
+      )}
     </Header>
   );
 };

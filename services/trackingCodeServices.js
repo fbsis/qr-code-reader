@@ -3,12 +3,7 @@ import axios from 'axios';
 import {AsyncStorage} from 'react-native';
 
 export async function getInformation(qrCode) {
-  // let recuperando = await getDBInformation();
-  // console.log('recuperando 1', recuperando);
-
-  // console.log('getInformation', await getDBInformation());
   const leitura = data.data;
-  console.log('leitura', leitura);
 
   const dbInformation = leitura.filter(e => e.qrCode == qrCode);
   return dbInformation;
@@ -21,7 +16,6 @@ export async function validateAndGetJsonUrl(url) {
         'Content-Type': 'application/json',
       },
     });
-    console.log('result data', data.status, data.data);
     if (data.status == 200) {
       if (data.data.data) {
         return 'Invalid';
