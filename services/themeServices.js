@@ -33,10 +33,8 @@ export async function getColor() {
   try {
     const data = await AsyncStorage.getItem(StorageKeyColor);
     if (data !== null) {
-      console.log(1);
       return data;
     } else {
-      console.log(2);
       return themesAvaliable()[0];
     }
   } catch (error) {
@@ -47,7 +45,6 @@ export async function getColor() {
 export async function setColor(color) {
   try {
     await AsyncStorage.setItem(StorageKeyColor, color);
-    console.log('apos salvar', dbJson);
   } catch (error) {
     return error;
     // Error saving data

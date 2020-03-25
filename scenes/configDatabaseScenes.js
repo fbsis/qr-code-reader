@@ -79,7 +79,7 @@ function configDatabaseScenes(props) {
             </Button>
           </Form>
 
-          <Card>
+          {/* <Card>
             <CardItem>
               <Body>
                 <Text>
@@ -92,7 +92,7 @@ function configDatabaseScenes(props) {
                 </Text>
               </Body>
             </CardItem>
-          </Card>
+          </Card> */}
         </>
       )}
     </Content>
