@@ -1,6 +1,6 @@
 import React, {Component, useState, useEffect} from 'react';
 
-import {StyleSheet, Root, Toast, Alert, Modal, View} from 'react-native';
+import {StyleSheet, Root, Toast, Alert, Modal, View, Image} from 'react-native';
 
 import {
   Content,
@@ -22,28 +22,57 @@ import {
   Icon,
   Switch,
 } from 'native-base';
-import ColorPalette from 'react-native-color-palette';
 
-import {themesAvaliable, setColor, getColor} from '../services/themeServices';
+import ColorPalette from 'react-native-color-palette';
+import ImagePicker from 'react-native-image-picker';
+
+import {
+  themesAvaliable,
+  setColor,
+  getColor,
+  getLogo,
+  SetLogo,
+} from '../services/themeServices';
 
 function themesScenes(props) {
   const [isModalOpen, setModalOpen] = useState(false);
   const [color, setColorState] = useState(themesAvaliable()[0]);
+  const [image, setImageState] = useState(null);
 
   useEffect(() => {
     getColor().then(data => {
       setColorState(data);
     });
+    getLogo().then(data => {
+      setImageState(data);
+    });
   }, []);
 
   const salvar = async () => {
     setColor(color);
-    props.navigation.goBack();
+    SetLogo(image);
+    props.navigation.navigate('Home', {reload: image});
   };
 
   const selectColor = async color => {
     setColorState(color);
     setModalOpen(false);
+  };
+
+  const selectImage = () => {
+    ImagePicker.launchImageLibrary({}, response => {
+      //console.log('Response = ', response.uri);
+
+      if (response.didCancel) {
+        //console.log('User cancelled image picker');
+      } else if (response.error) {
+        //console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        //console.log('User tapped custom button: ', response.customButton);
+      } else {
+        setImageState(response.uri);
+      }
+    });
   };
 
   return (
@@ -69,7 +98,11 @@ function themesScenes(props) {
           </Content>
         </Modal>
 
-        <ListItem icon>
+        <ListItem
+          icon
+          onPress={() => {
+            selectImage();
+          }}>
           <Left>
             <Button>
               <Icon type="FontAwesome" name="image" />
@@ -79,7 +112,14 @@ function themesScenes(props) {
             <Text>Logotipo</Text>
           </Body>
           <Right>
-            <Text>Padrão</Text>
+            {image === null && <Text>Padrão</Text>}
+            {image !== null && (
+              <Image style={{width: 35, height: 35}} source={{uri: image}} />
+              // <Image
+              //   source={require(image)}
+              // />
+            )}
+
             <Icon active name="arrow-forward" />
           </Right>
         </ListItem>

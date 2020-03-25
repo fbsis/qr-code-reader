@@ -1,12 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -17,34 +9,41 @@ import {
 } from 'react-native';
 
 import {Container, Content, Button, Text} from 'native-base';
-
-// import Head from '../../components/Head'
 import Foot from '../components/Foot';
-
-import logo from '../assets/logo_ceptis_digital.png';
+import {getLogo} from '../services/themeServices';
 
 const Home = props => {
   const navigation = props.navigation;
+  const [image, setImageState] = useState(null);
 
+  useEffect(() => {
+    getLogo().then(data => {
+      setImageState(data);
+    });
+  });
+
+  const style = {
+    height: 350,
+    width: 350,
+    alignSelf: 'center',
+    margin: 50,
+    marginTop: 50,
+  };
   return (
     <Container>
-      {/* <Head /> */}
       <Content>
         <View
           style={{
             margin: 10,
             flex: 1,
           }}>
-          <Image
-            source={require('../assets/logo_ceptis_digital.png')}
-            style={{
-              height: 350,
-              width: 350,
-              alignSelf: 'center',
-              margin: 50,
-              marginTop: 50,
-            }}
-          />
+          {image == null && (
+            <Image
+              source={require('../assets/logo_ceptis_digital.png')}
+              style={style}
+            />
+          )}
+          {image != null && <Image source={{uri: image}} style={style} />}
 
           <Button
             block

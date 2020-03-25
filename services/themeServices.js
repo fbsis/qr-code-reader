@@ -2,6 +2,7 @@ import {AsyncStorage} from 'react-native';
 import {StyleSheet, Root, Toast, Alert} from 'react-native';
 
 const StorageKeyColor = '@themeColor';
+const StorageKeyLogo = '@themeLogo';
 
 export function themesAvaliable() {
   return [
@@ -51,5 +52,27 @@ export async function setColor(color) {
   }
 }
 
-export async function getCurrentLogo() {}
-export async function SetLogo() {}
+export async function getLogo() {
+  try {
+    const data = await AsyncStorage.getItem(StorageKeyLogo);
+    if (data !== null) {
+      console.log('data', data);
+      return data;
+    } else {
+      console.log('logo padrao')
+      return null;
+    }
+  } catch (error) {
+    return error;
+  }
+}
+export async function SetLogo(logo) {
+  try {
+    await AsyncStorage.setItem(StorageKeyLogo, logo);
+  } catch (error) {
+    console.log('erro ao salvar', error);
+
+    return error;
+    // Error saving data
+  }
+}
