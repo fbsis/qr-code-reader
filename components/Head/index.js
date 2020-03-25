@@ -14,10 +14,20 @@ import {
   Text,
 } from 'native-base';
 
-export default Head = props => {
+import {getColor, themesAvaliable} from './../../services/themeServices';
+
+export default function Head(props) {
+  const [headerColor, SetheaderColor] = useState(themesAvaliable()[0]);
+
+  useEffect(() => {
+    getColor().then(data => {
+      SetheaderColor(data);
+    });
+  });
+
   const backAction = () => {
     if (props.isInternal) {
-      props.navigation.push('Home');
+      props.navigation.navigate('Home');
     } else {
       props.navigation.goBack();
     }
@@ -27,6 +37,7 @@ export default Head = props => {
     if (props.title == 'Ceptis') {
       return false;
     }
+
     if (props.isInternal) {
       return true;
     } else {
@@ -36,8 +47,11 @@ export default Head = props => {
     }
   };
 
+
   return (
-    <Header>
+    <Header
+      style={{backgroundColor: headerColor}}
+      androidStatusBarColor={headerColor}>
       {isShowButton() && (
         <Left>
           <Button transparent onPress={() => backAction()}>
@@ -61,4 +75,4 @@ export default Head = props => {
       )}
     </Header>
   );
-};
+}
